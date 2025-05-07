@@ -22,3 +22,15 @@ class Empresa:
 
     def getName(self):
         return self.nome
+
+    def getFuncionario(self, name):
+        for func in self.funcionarios:
+            if func.nome == name:
+                return func
+
+    def getProjeto(self, name):
+        for proj in self.projetos:
+            if proj.nome == name:
+                return proj
+
+        return "No Projeto with that Name"

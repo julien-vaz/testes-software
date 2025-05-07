@@ -22,19 +22,19 @@ class TestInclusaoProjeto(unittest.TestCase):
 
     def delegate_criacao_funcionario_e_projeto(self):
         fenn = Funcionario("Fenn")
-        outer = Projeto('Outer Wilds')
+        outer = Projeto('Outer Reaches')
         self.empresa.incluir_funcionario(fenn)
         self.empresa.incluir_projeto(outer)
 
     def test_incluir_funcionario_projeto(self):
         self.delegate_criacao_funcionario_e_projeto()
 
-        outer = self.empresa.getProjeto('Outer Wilds')
+        outer = self.empresa.getProjeto('Outer Reaches')
         fenn = self.empresa.getFuncionario('Fenn')
 
         outer.incluir_funcionarios([fenn])
 
-        assert(len(outer.funcionarios == 1))
+        assert(len(outer.funcionarios) == 1)
 
 
 
