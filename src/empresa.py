@@ -9,3 +9,5 @@ class Empresa:
     def incluir_funcionario(self, func):
         self.funcionarios.append(func)
 
+    def getName(self):
+        return self.nome
