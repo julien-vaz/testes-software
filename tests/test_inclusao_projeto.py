@@ -13,6 +13,12 @@ class TestInclusaoProjeto(unittest.TestCase):
         self.empresa.incluir_projeto(backrooms)
         assert(len(self.empresa.projetos) == 1)
 
+    def test_inclusao_projeto_duplicado(self):
+        backrooms = Projeto('Backrooms')
+        self.empresa.incluir_projeto(backrooms)
+        with self.assertRaises(DuplicateProjetoExpection):
+            self.empresa.incluir_projeto(backrooms)
+
 
 
 if __name__ == "__name__":
