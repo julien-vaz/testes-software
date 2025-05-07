@@ -1,3 +1,5 @@
+from src.duplicate_funcionario_exception import DuplicateFuncionarioException
+
 class Empresa:
 
     def __init__(self, nome):
@@ -7,6 +9,8 @@ class Empresa:
         self.funcionarios = []
 
     def incluir_funcionario(self, func):
+        if func in self.funcionarios:
+            raise DuplicateFuncionarioException
         self.funcionarios.append(func)
 
     def getName(self):

@@ -1,5 +1,6 @@
 from src.funcionario import Funcionario
 from src.empresa import Empresa
+from src.duplicate_funcionario_exception import DuplicateFuncionarioException
 import unittest
 
 
