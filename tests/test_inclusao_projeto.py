@@ -29,8 +29,8 @@ class TestInclusaoProjeto(unittest.TestCase):
     def test_incluir_funcionario_projeto(self):
         self.delegate_criacao_funcionario_e_projeto()
 
-        outer = self.empresa.projetos.getProjeto('Outer Wilds')
-        fenn = self.empresa.projetos.getProjeto('Fenn')
+        outer = self.empresa.getProjeto('Outer Wilds')
+        fenn = self.empresa.getFuncionario('Fenn')
 
         outer.incluir_funcionarios([fenn])
 
