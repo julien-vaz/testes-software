@@ -20,6 +20,23 @@ class TestInclusaoProjeto(unittest.TestCase):
         with self.assertRaises(DuplicateProjetoException):
             self.empresa.incluir_projeto(backrooms)
 
+    def delegate_criacao_funcionario_e_projeto(self):
+        fenn = Funcionario("Fenn")
+        outer = Projeto('Outer Wilds')
+        self.empresa.incluir_funcionario(fenn)
+        self.empresa.incluir_projeto(outer)
+
+    def test_incluir_funcionario_projeto(self):
+        self.delegate_criacao_funcionario_e_projeto()
+
+        outer = self.empresa.projetos.getProjeto('Outer Wilds')
+        fenn = self.empresa.projetos.getProjeto('Fenn')
+
+        outer.incluir_funcionarios([fenn])
+
+        assert(len(outer.funcionarios == 1))
+
+
 
 
 if __name__ == "__name__":
