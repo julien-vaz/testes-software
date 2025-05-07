@@ -12,7 +12,7 @@ class TestInclusaoProjeto(unittest.TestCase):
     def test_inclusao_projeto_backrooms(self): # Teste-10
         backrooms = Projeto('Backrooms')
         self.empresa.incluir_projeto(backrooms)
-        assert(len(self.empresa.projetos) == 1)
+        assert(self.empresa.projetos[-1] == backrooms)
 
     def test_inclusao_projeto_duplicado(self): # Teste-11
         backrooms = Projeto('Backrooms')
@@ -34,10 +34,10 @@ class TestInclusaoProjeto(unittest.TestCase):
 
         outer.incluir_funcionarios([fenn])
 
-        assert(len(outer.funcionarios) == 1)
+        assert(outer.funcionarios == [fenn])
 
 
 
 
-if __name__ == "__name__":
+if __name__ == "__test_inclusao_projeto__":
     unittest.main()

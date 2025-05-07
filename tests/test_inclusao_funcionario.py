@@ -11,7 +11,7 @@ class TestInclusaoFuncionario(unittest.TestCase):
     def test_inclusao_funcionario_hanako(self):  # Teste-03
         hanako = Funcionario('Hanako')
         self.empresa.incluir_funcionario(hanako)
-        assert(len(self.empresa.funcionarios) == 1)
+        assert(self.empresa.funcionarios[-1] == hanako)
 
     def test_insert_same_funcionario(self): # Teste-07
         hanako = Funcionario('Hanako')
@@ -21,5 +21,5 @@ class TestInclusaoFuncionario(unittest.TestCase):
 
 
 
-if __name__ == "__name__":
+if __name__ == "__test_inclusao_funcionario__":
     unittest.main()
