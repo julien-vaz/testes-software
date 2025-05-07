@@ -1,6 +1,7 @@
 from src.funcionario import Funcionario
 from src.empresa import Empresa
 from src.projeto import Projeto
+from src.duplicate_projeto_exception import DuplicateProjetoException
 import unittest
 
 
@@ -16,7 +17,7 @@ class TestInclusaoProjeto(unittest.TestCase):
     def test_inclusao_projeto_duplicado(self):
         backrooms = Projeto('Backrooms')
         self.empresa.incluir_projeto(backrooms)
-        with self.assertRaises(DuplicateProjetoExpection):
+        with self.assertRaises(DuplicateProjetoException):
             self.empresa.incluir_projeto(backrooms)
 
 

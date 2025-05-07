@@ -1,4 +1,5 @@
 from src.duplicate_funcionario_exception import DuplicateFuncionarioException
+from src.duplicate_projeto_exception import DuplicateProjetoException
 
 class Empresa:
 
@@ -15,6 +16,8 @@ class Empresa:
         self.funcionarios.append(func)
 
     def incluir_projeto(self, proj):
+        if proj in self.projetos:
+            raise DuplicateProjetoException
         self.projetos.append(proj)
 
     def getName(self):
