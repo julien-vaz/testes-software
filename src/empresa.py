@@ -32,5 +32,3 @@ class Empresa:
         for proj in self.projetos:
             if proj.nome == name:
                 return proj
-
-        return "No Projeto with that Name"
