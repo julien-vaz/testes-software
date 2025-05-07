@@ -9,24 +9,24 @@ class TestInclusaoProjeto(unittest.TestCase):
     def setUp(self):
         self.empresa = Empresa("W")
 
-    def test_inclusao_projeto_backrooms(self):
+    def test_inclusao_projeto_backrooms(self): # Teste-10
         backrooms = Projeto('Backrooms')
         self.empresa.incluir_projeto(backrooms)
         assert(len(self.empresa.projetos) == 1)
 
-    def test_inclusao_projeto_duplicado(self):
+    def test_inclusao_projeto_duplicado(self): # Teste-11
         backrooms = Projeto('Backrooms')
         self.empresa.incluir_projeto(backrooms)
         with self.assertRaises(DuplicateProjetoException):
             self.empresa.incluir_projeto(backrooms)
 
-    def delegate_criacao_funcionario_e_projeto(self):
+    def delegate_criacao_funcionario_e_projeto(self): # Teste-12
         fenn = Funcionario("Fenn")
         outer = Projeto('Outer Reaches')
         self.empresa.incluir_funcionario(fenn)
         self.empresa.incluir_projeto(outer)
 
-    def test_incluir_funcionario_projeto(self):
+    def test_incluir_funcionario_projeto(self): # Teste-13
         self.delegate_criacao_funcionario_e_projeto()
 
         outer = self.empresa.getProjeto('Outer Reaches')

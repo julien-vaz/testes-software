@@ -6,11 +6,11 @@ from src.projeto import Projeto
 
 class TestCriacaoProjeto(unittest.TestCase):
 
-    def test_criacao_projeto_human_instrumentalization(self):
+    def test_criacao_projeto_human_instrumentalization(self): # Teste-08
         HI = Projeto('Human Instrumentalization')
         assert(HI.nome == 'Human Instrumentalization')
 
-    def test_criacao_projeto_vazio(self):
+    def test_criacao_projeto_vazio(self): # Teste-09
         with self.assertRaises(ValueError):
             HI = Projeto('')
 

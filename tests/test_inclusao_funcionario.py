@@ -8,12 +8,12 @@ class TestInclusaoFuncionario(unittest.TestCase):
     def setUp(self):
         self.empresa = Empresa("W")
 
-    def test_inclusao_funcionario_hanako(self):
+    def test_inclusao_funcionario_hanako(self):  # Teste-03
         hanako = Funcionario('Hanako')
         self.empresa.incluir_funcionario(hanako)
         assert(len(self.empresa.funcionarios) == 1)
 
-    def test_insert_same_funcionario(self):
+    def test_insert_same_funcionario(self): # Teste-07
         hanako = Funcionario('Hanako')
         self.empresa.incluir_funcionario(hanako)
         with self.assertRaises(DuplicateFuncionarioException):
