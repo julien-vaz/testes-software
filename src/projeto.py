@@ -20,3 +20,10 @@ class Projeto:
         responsavel.ocorrencias.append(newOcorrencia)
         self.countId += 1
         self.ocorrencias.append(newOcorrencia)
+
+    def altera_responsavel(self, ocorrencia, funcionario):
+        if ocorrencia not in self.ocorrencias:
+            raise ValueError
+        if funcionario not in self.funcionarios:
+            raise ValueError
+        ocorrencia.responsavel = funcionario

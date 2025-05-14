@@ -66,6 +66,25 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.mary.fecha_ocorrencia(ocorrencia)
 
+    def test_modifica_responsavel_por_ocorrencia(self):
+        self.projeto.cria_ocorrencia("Unihorn", "Travel to the Aon Adharc Glen and kill a unicorn.", datetime.date.today(), self.fenn)
+        ocorrencia = self.projeto.ocorrencias[-1]
+        self.projeto.altera_responsavel(ocorrencia, self.mary)
+
+    def test_modifica_responsavel_por_ocorrencia_projeto_invalido(self):
+        self.projeto.cria_ocorrencia("They Say You Can't Go Home Again", "Find out about the life your body had before you.", datetime.date.today(), self.fenn)
+        newProjeto = Projeto("Book II")
+        ocorrencia = self.projeto.ocorrencias[-1]
+        with self.assertRaises(ValueError):
+            newProjeto.altera_responsavel(ocorrencia, self.joon)
+
+    def test_modifica_responsavel_por_ocorrencia_projeto_invalido(self):
+        grak = Funcionario("Grakhuil")
+        self.projeto.cria_ocorrencia("All That Glitters", "Return to Darili Irid with Grakhuil once da has gathered enough gold to statisfy da nad self-imposed penance to da nad former clan.", datetime.date.today(), self.mary)
+        ocorrencia = self.projeto.ocorrencias[-1]
+        with self.assertRaises(ValueError):
+            self.projeto.altera_responsavel(ocorrencia, grak)
+
 
 
 if __name__ == "__test_criacao_funcionario__":
