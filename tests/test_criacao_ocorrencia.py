@@ -78,14 +78,14 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         with self.assertRaises(ValueError):
             newProjeto.altera_responsavel(ocorrencia, self.joon)
 
-    def test_modifica_responsavel_por_ocorrencia_projeto_invalido(self):
+    def test_modifica_responsavel_por_ocorrencia_funcionario_de_fora(self):
         grak = Funcionario("Grakhuil")
         self.projeto.cria_ocorrencia("All That Glitters", "Return to Darili Irid with Grakhuil once da has gathered enough gold to statisfy da nad self-imposed penance to da nad former clan.", datetime.date.today(), self.mary)
         ocorrencia = self.projeto.ocorrencias[-1]
         with self.assertRaises(ValueError):
             self.projeto.altera_responsavel(ocorrencia, grak)
 
-    def test_modifica_responsavel_por_ocorrencia_projeto_invalido(self):
+    def test_modifica_responsavel_por_ocorrencia_fechada(self):
         doe = Funcionario("Six-Eyed-Doe")
         self.projeto.incluir_funcionarios([doe])
         self.projeto.cria_ocorrencia("Gone to Seed", "There is a place on Aerb considered worse than the first four thousand hells. Defeat Fel Seed.", datetime.date.today(), doe)
