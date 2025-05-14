@@ -5,11 +5,13 @@ class Funcionario:
             raise ValueError
         self.nome = nome
         self.ocorrencias = []
+        self.ocorrenciasAtivas = 0
 
     def fecha_ocorrencia(self, ocorrencia):
         if ocorrencia not in self.ocorrencias:
             raise ValueError
         ocorrencia.status = False
+        self.ocorrenciasAtivas -= 1
 
     def altera_prioridade(self, ocorrencia, prioridade):
         if ocorrencia not in self.ocorrencias:

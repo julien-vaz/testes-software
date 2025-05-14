@@ -16,12 +16,13 @@ class Projeto:
     def cria_ocorrencia(self, nome, resumo, data, responsavel, tipo, prioridade = 3):
         if tipo not in ["Tarefa", "Bug", "Melhoria", "Knowledge", "Killing", "Exploration", "Gathering"]:
             raise ValueError
-        if len(responsavel.ocorrencias) >= 10:
+        if responsavel.ocorrenciasAtivas >= 10:
             raise ValueError
         if prioridade not in [1, 2, 3]:
             raise ValueError
         newOcorrencia = Ocorrencia(nome, self.countId, resumo, data, responsavel, self, tipo, prioridade)
         responsavel.ocorrencias.append(newOcorrencia)
+        responsavel.ocorrenciasAtivas += 1
         self.countId += 1
         self.ocorrencias.append(newOcorrencia)
 
