@@ -10,3 +10,11 @@ class Funcionario:
         if ocorrencia not in self.ocorrencias:
             raise ValueError
         ocorrencia.status = False
+
+    def altera_prioridade(self, ocorrencia, prioridade):
+        if ocorrencia not in self.ocorrencias:
+            raise ValueError
+        if ocorrencia.status:
+            ocorrencia.prioridade = prioridade
+        else:
+            raise ValueError
