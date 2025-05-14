@@ -21,9 +21,24 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         assert("Seven Bells for Seven Hells" == newOcorrencia.nome)
 
     def test_criacao_ocorrencia_funcionario_nao_projeto(self):
-        self.larkspur = Funcionario("Larkspur")
+        larkspur = Funcionario("Larkspur")
         with self.assertRaises(ValueError):
-            self.projeto.cria_ocorrencia("Straddling Worlds", "Consult at the Athenaeum of Speculation and Scrutiny.", datetime.date.today(), self.larkspur)
+            self.projeto.cria_ocorrencia("Straddling Worlds", "Consult at the Athenaeum of Speculation and Scrutiny.", datetime.date.today(), larkspur)
+
+    def test_criacao_ocorrencia_sem_nome(self):
+        with self.assertRaises(ValueError):
+            self.projeto.cria_ocorrencia("", "[REDACTED]", datetime.date.today(), self.joon)
+
+    def test_criacao_ocorrencia_ids_funcionando(self):
+        self.projeto.cria_ocorrencia("God Botherer", "Meet with a god.", datetime.date.today(), self.joon)
+        ocorrenciaGod = self.projeto.ocorrencias[-1]
+        self.projeto.cria_ocorrencia("Comfort Zone", "Leave the city of Comfort.", datetime.date.today(), self.joon)
+        ocorrenciaComfort = self.projeto.ocorrencias[-1]
+
+        self.assertNotEqual(ocorrenciaGod.id, ocorrenciaComfort.id)
+
+
+
 
 if __name__ == "__test_criacao_funcionario__":
     unittest.main()

@@ -14,6 +14,6 @@ class Projeto:
         self.funcionarios = self.funcionarios + funcionarios
 
     def cria_ocorrencia(self, nome, resumo, data, responsavel):
-        newOcorrencia = Ocorrencia(nome, id, resumo, data, responsavel, self)
+        newOcorrencia = Ocorrencia(nome, self.countId, resumo, data, responsavel, self)
         self.countId += 1
         self.ocorrencias.append(newOcorrencia)
