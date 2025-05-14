@@ -26,4 +26,7 @@ class Projeto:
             raise ValueError
         if funcionario not in self.funcionarios:
             raise ValueError
-        ocorrencia.responsavel = funcionario
+        if ocorrencia.status:
+            ocorrencia.responsavel = funcionario
+        else:
+            raise ValueError

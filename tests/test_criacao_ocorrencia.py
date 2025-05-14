@@ -85,6 +85,16 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.projeto.altera_responsavel(ocorrencia, grak)
 
+    def test_modifica_responsavel_por_ocorrencia_projeto_invalido(self):
+        doe = Funcionario("Six-Eyed-Doe")
+        self.projeto.incluir_funcionarios([doe])
+        self.projeto.cria_ocorrencia("Gone to Seed", "There is a place on Aerb considered worse than the first four thousand hells. Defeat Fel Seed.", datetime.date.today(), doe)
+        ocorrencia = self.projeto.ocorrencias[-1]
+        doe.fecha_ocorrencia(ocorrencia)
+
+        with self.assertRaises(ValueError):
+            self.projeto.altera_responsavel(ocorrencia, self.joon)
+
 
 
 if __name__ == "__test_criacao_funcionario__":
