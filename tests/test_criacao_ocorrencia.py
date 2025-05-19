@@ -1,9 +1,16 @@
 import unittest
-from src.ocorrencia import Ocorrencia
+from src.empty_ocorrencia_name_exception import EmptyOcorrenciaNameException
+from src.limite_ocorrencias_excedido_exception import LimiteOcorrenciasExcedidoException
 from src.empresa import Empresa
 from src.funcionario import Funcionario
+from src.ocorrencia_fechada_exception import OcorrenciaFechadaException
+from src.ocorrencia_inexistente_exception import OcorrenciaInexistenteException
+from src.prioridade_invalida_exception import PrioridadeInvalidaException
 from src.projeto import Projeto
 import datetime
+
+from src.funcionario_nao_autorizado_exception import FuncionarioNaoAutorizadoException
+from src.tipo_invalido_exception import TipoInvalidoException
 
 class TestCriacaoOcorrencia(unittest.TestCase):
 
@@ -22,12 +29,12 @@ class TestCriacaoOcorrencia(unittest.TestCase):
 
     def test_criacao_ocorrencia_funcionario_nao_projeto(self): # Teste-15
         larkspur = Funcionario("Larkspur")
-        with self.assertRaises(ValueError):
+        with self.assertRaises(FuncionarioNaoAutorizadoException):
             self.projeto.cria_ocorrencia("Straddling Worlds", "Consult at the Athenaeum of Speculation and Scrutiny.", datetime.date.today(), larkspur, "Knowledge")
 
     def test_criacao_ocorrencia_sem_nome(self): # Teste-16
-        with self.assertRaises(ValueError):
-            self.projeto.cria_ocorrencia("", "[REDACTED]", datetime.date.today(), self.joon, "[REDACTED]")
+        with self.assertRaises(EmptyOcorrenciaNameException):
+            self.projeto.cria_ocorrencia("", "Exploration", datetime.date.today(), self.joon, "Exploration")
 
     def test_criacao_ocorrencia_ids_funcionando(self): # Teste-17
         self.projeto.cria_ocorrencia("God Botherer", "Meet with a god.", datetime.date.today(), self.joon, "Knowledge")
@@ -50,7 +57,7 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         self.projeto.cria_ocorrencia("Exit Strategy", "You are stranded in the deserte with limited food, no access to magic, and a wounded party member, you need to escape.", datetime.date.today(), self.joon, "Exploration")
         self.projeto.cria_ocorrencia("Your Princess is in Another Castle", "Mary has been kidnapped by the gold mage of Barren Jewel, find her and rescue her.", datetime.date.today(), self.joon, "Killing")
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LimiteOcorrenciasExcedidoException):
             self.projeto.cria_ocorrencia("Boneitis", "You used up the magic in your bones, and it's not going to come back, find a way to replenish it.", datetime.date.today(), self.joon, "Knowledge")
 
     def test_criacao_ocorrencia_fechada(self): # Teste-19
@@ -63,7 +70,7 @@ class TestCriacaoOcorrencia(unittest.TestCase):
     def test_criacao_ocorrencia_fechada_nao_autorizado(self): # Teste-20
         self.projeto.cria_ocorrencia("Summer's End", "Return to the place where Fenn received her scars and bring justice to the elves.", datetime.date.today(), self.fenn, "Killing")
         ocorrencia = self.projeto.ocorrencias[-1]
-        with self.assertRaises(ValueError):
+        with self.assertRaises(FuncionarioNaoAutorizadoException):
             self.mary.fecha_ocorrencia(ocorrencia)
 
     def test_modifica_responsavel_por_ocorrencia(self): # Teste-21
@@ -75,14 +82,14 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         self.projeto.cria_ocorrencia("They Say You Can't Go Home Again", "Find out about the life your body had before you.", datetime.date.today(), self.fenn, "Knowledge")
         newProjeto = Projeto("Book II")
         ocorrencia = self.projeto.ocorrencias[-1]
-        with self.assertRaises(ValueError):
+        with self.assertRaises(OcorrenciaInexistenteException):
             newProjeto.altera_responsavel(ocorrencia, self.joon)
 
     def test_modifica_responsavel_por_ocorrencia_funcionario_de_fora(self): # Teste-23
         grak = Funcionario("Grakhuil")
         self.projeto.cria_ocorrencia("All That Glitters", "Return to Darili Irid with Grakhuil once da has gathered enough gold to statisfy da nad self-imposed penance to da nad former clan.", datetime.date.today(), self.mary, "Gathering")
         ocorrencia = self.projeto.ocorrencias[-1]
-        with self.assertRaises(ValueError):
+        with self.assertRaises(FuncionarioNaoAutorizadoException):
             self.projeto.altera_responsavel(ocorrencia, grak)
 
     def test_modifica_responsavel_por_ocorrencia_fechada(self): # Teste-24
@@ -92,7 +99,7 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         ocorrencia = self.projeto.ocorrencias[-1]
         doe.fecha_ocorrencia(ocorrencia)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(OcorrenciaFechadaException):
             self.projeto.altera_responsavel(ocorrencia, self.joon)
 
     def test_ocorrencia_com_tipos(self): # Teste-25
@@ -102,7 +109,7 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         self.assertEqual("Killing", ocorrencia.tipo)
 
     def test_ocorrencia_com_tipos_nao_definidos(self): # Teste-26
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TipoInvalidoException):
             self.projeto.cria_ocorrencia("Through the Lashing Glass", "Find the treasures in the glass palace, inside the Glassy Fields Exclusion Zone.", datetime.date.today(), self.joon, "Gathreirng")
 
     def test_ocorrencia_com_prioridade(self): # Teste-27
@@ -117,7 +124,7 @@ class TestCriacaoOcorrencia(unittest.TestCase):
     def test_ocorrencia_com_prioridade_definida_errada(self): # Teste-29
         solace = Funcionario("Solace")
         self.projeto.incluir_funcionarios([solace])
-        with self.assertRaises(ValueError):
+        with self.assertRaises(PrioridadeInvalidaException):
             self.projeto.cria_ocorrencia("Taking Root", "The world has but a single druid, tending to but a single locus, find a way to help them so the world druids can stalk the world once more.", datetime.date.today(), solace, "Gathering", 0)
 
     def test_modifica_prioridade_por_ocorrencia_fechada(self): # Teste-30
@@ -127,13 +134,13 @@ class TestCriacaoOcorrencia(unittest.TestCase):
         ocorrencia = self.projeto.ocorrencias[-1]
         doe.fecha_ocorrencia(ocorrencia)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(OcorrenciaFechadaException):
             doe.altera_prioridade(ocorrencia, 3)
 
     def test_ocorrencia_altera_prioridade_nao_responsavel(self): # Teste-31
         self.projeto.cria_ocorrencia("Crimes Against the Soul", "Journey to the autonomous prison on Sulid Isle and retreve the criminal Fallatehr Whiteshell.", datetime.date.today(), self.mary, "Knowledge", 1)
         ocorrencia = self.projeto.ocorrencias[-1]
-        with self.assertRaises(ValueError):
+        with self.assertRaises(FuncionarioNaoAutorizadoException):
             self.joon.altera_prioridade(ocorrencia, 3)
 
 

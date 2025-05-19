@@ -1,4 +1,5 @@
 import unittest
+from src.empty_funcionario_name_exception import EmptyFuncionarioNameException
 from src.funcionario import Funcionario
 
 class TestCriacaoFuncionario(unittest.TestCase):
@@ -8,7 +9,7 @@ class TestCriacaoFuncionario(unittest.TestCase):
         assert(hanako.nome == 'Hanako')
 
     def test_criacao_funcionario_vazio(self): # Teste-06
-        with self.assertRaises(ValueError):
+        with self.assertRaises(EmptyFuncionarioNameException):
             funcionario = Funcionario('')
 
 if __name__ == "__test_criacao_funcionario__":

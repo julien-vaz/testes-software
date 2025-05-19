@@ -1,11 +1,12 @@
 from src.duplicate_funcionario_exception import DuplicateFuncionarioException
 from src.duplicate_projeto_exception import DuplicateProjetoException
+from src.empty_empresa_name_exception import EmptyEmpresaNameException
 
 class Empresa:
 
     def __init__(self, nome):
         if nome == '':
-            raise ValueError
+            raise EmptyEmpresaNameException
         self.nome = nome
         self.funcionarios = []
         self.projetos = []
